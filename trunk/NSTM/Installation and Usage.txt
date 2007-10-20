@@ -1,0 +1,20 @@
+Installation
+------------
+In order to compile this solution you need to first install PostSharp on your
+development machine and check that the NSTM projects reference the correct
+PostSharp dlls. Download PostSharp from www.postsharp.org.
+
+
+Usage
+-----
+The NSTM core is just a single assembly: NSTM.dll. However, if you want to use
+the [NstmTransactional] or [NstmAtomic] attributes, you need to also deploy
+PostSharp´s PostSharp.Laos.dll and PostSharp.Public.dll and reference them in the
+project using NSTM.
+
+
+Documentation
+-------------
+A description of NSTM is provided in several articles at:
+
+http://weblogs.asp.net/ralfw/archive/tags/Software+Transactional+Memory/default.aspx

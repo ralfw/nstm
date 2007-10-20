@@ -1,0 +1,18 @@
+Version 1.0.0.240, August 19, 07
+--------------------------------
+-Added manual Retry capability to NstmMemory.ExecuteAtomically()
+	NstmMemory.Retry([timeout]) to be called in ExecuteAtomically()
+-Moved true black box tests from NSTM to NSTM.BlackBoxTests project
+
+
+Version 1.0.0.222, August 8, 07
+-------------------------------
+-NstmMemory.ExecuteAtomically()
+-Throw NstmValidationFailedException on validation failure during read/commit.
+-Validation matrix: made validation more clear.
+-Made PostSharp references version independent.
+
+
+Version 1.0.0.202, July 07
+--------------------------
+Initital version released to public.
