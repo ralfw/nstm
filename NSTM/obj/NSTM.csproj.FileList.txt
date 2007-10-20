@@ -1,0 +1,13 @@
+bin\Debug\NSTM.dll
+bin\Debug\NSTM.pdb
+bin\Debug\nunit.core.dll
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\NSTM.dll
+obj\Debug\NSTM.pdb
+bin\Release\NSTM.dll
+bin\Release\NSTM.pdb
+bin\Release\nunit.core.dll
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\NSTM.dll
+obj\Release\NSTM.pdb
+bin\Debug\nunit.framework.dll

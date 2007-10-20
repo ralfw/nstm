@@ -1,0 +1,10 @@
+obj\Debug\ResolveAssemblyReference.cache
+bin\Debug\test.NTSM.dll
+bin\Debug\test.NTSM.pdb
+bin\Debug\NSTM.dll
+bin\Debug\nunit.core.dll
+bin\Debug\NSTM.pdb
+obj\Debug\test.NTSM.dll
+obj\Debug\test.NTSM.pdb
+bin\Debug\NSTM.Collections.dll
+bin\Debug\NSTM.Collections.pdb
