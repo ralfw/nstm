@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Language" content="en-us" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PostSharp 1.0: Install Instructions</title>
+</head>
+
+<body>
+
+<h1>PostSharp 1.0: Install Instructions</h1>
+<p>These instructions apply if you want to use the binary or source 
+distribution, but do not want to install PostSharp on your machine using the 
+installer.</p>
+<p>In this case, you have to tell MSBuild to insert PostSharp in the build 
+process. And since you did not use the installer, you need to do it yourself.</p>
+<h2>1. Global Insertion: For All Projects</h2>
+<p>If you want PostSharp to be inserted in all projects of your machine, you 
+have to do exactly what the installer does: reference PostSharp in documented 
+MSBuild extension points.</p>
+<p>You need to do something in every directory that you find on your system in 
+the following list :</p>
+<ul>
+	<li>C:\Program Files (x86)\MSBuild\v2.0</li>
+	<li>C:\Program Files (x86)\MSBuild\v3.5</li>
+	<li>C:\Program Files\MSBuild\v2.0</li>
+	<li>C:\Program Files\MSBuild\v3.5</li>
+</ul>
+<p>In these directories, locate the file Custom.After.Microsoft.Common.targets.
+</p>
+<p>1. If the file Custom.After.Microsoft.Common.targets does <strong>not
+</strong>exist, create it</p>
+<pre>&lt;Project xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
+  &lt;Import Project=&quot;<em>Path\To\PostSharp</em>\PostSharp.targets&quot; Condition=&quot; &#39;$(DontImportPostSharp)&#39; == &#39;&#39; /&gt;
+&lt;/Project&gt;</pre>
+<p>2. If the file Custom.After.Microsoft.Common.targets exist, just insert the 
+&lt;Import ... /&gt; line in the &lt;Project/&gt; element.</p>
+<h2>2. Per-Project Insertion</h2>
+<p>You need to edit the project file of every project that needs to be 
+post-compiled.</p>
+<p>Open the project file (csproj, vbproj, ...)&nbsp; using a text editor. At the 
+end of the file, there should be one or more &lt;Import .../&gt; elements. For 
+instance, a C# 2.0 project file ends like this:</p>
+<pre> &lt;Import Project=&quot;$(MSBuildBinPath)\Microsoft.CSharp.targets&quot; /&gt;</pre>
+<p><strong>Before</strong> the import line, insert the following text:</p>
+<pre>  &lt;PropertyGroup&gt;
+    &lt;DontImportPostSharp&gt;True&lt;/DontImportPostSharp&gt;
+    &lt;PostSharpDirectory&gt;Path\To\PostSharp&lt;/PostSharpDirectory&gt;
+  &lt;/PropertyGroup&gt;</pre>
+<p><strong>After</strong> the import line, insert the following text:</p>
+<pre>&lt;Import Project=&quot;$(PostSharpDirectory)PostSharp.targets&quot; /&gt;</pre>
+<h1>Optimizations</h1>
+<p>Generating native images (ngen) for all PostSharp assemblies may 
+significantly improve performance.</p>
+
+</body>
+
+</html>

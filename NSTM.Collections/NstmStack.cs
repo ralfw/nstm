@@ -39,12 +39,6 @@ namespace NSTM.Collections
         private int count;
 
 
-public Entry Top
-{
-    get { return this.top; }
-}
-
-
         public NstmStack()
         {
             this.top = null;
@@ -85,6 +79,12 @@ public Entry Top
             }
             else
                 throw new InvalidOperationException("Stack empty!");
+        }
+
+
+        internal Entry Top
+        {
+            get { return this.top; }
         }
 
 

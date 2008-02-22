@@ -72,7 +72,6 @@ namespace NSTM.Collections.BlackboxTests
             }
         }
 
-
         [Test]
         public void testTx()
         {

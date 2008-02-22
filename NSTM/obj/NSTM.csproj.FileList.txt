@@ -11,3 +11,9 @@ obj\Release\ResolveAssemblyReference.cache
 obj\Release\NSTM.dll
 obj\Release\NSTM.pdb
 bin\Debug\nunit.framework.dll
+bin\Debug\PostSharp.Laos.dll
+bin\Debug\PostSharp.Public.dll
+bin\Debug\PostSharp.Laos.pdb
+bin\Debug\PostSharp.Laos.xml
+bin\Debug\PostSharp.Public.pdb
+bin\Debug\PostSharp.Public.xml
