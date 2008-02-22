@@ -19,35 +19,31 @@ namespace NSTM.Infrastructure
      */
     internal class ThreadTransactionStack
     {
-        private const string TLS_TX_STACK_SLOTNAME = "NstmTxStack";
-
-        private List<INstmTransaction> txStack;
+        [ThreadStatic]
+        private static List<INstmTransaction> txStack;
 
 
         internal ThreadTransactionStack()
         {
-            LocalDataStoreSlot txStackTLSSlot = Thread.GetNamedDataSlot(ThreadTransactionStack.TLS_TX_STACK_SLOTNAME);
-            this.txStack = (List<INstmTransaction>)Thread.GetData(txStackTLSSlot);
-            if (this.txStack == null)
+            if (ThreadTransactionStack.txStack == null)
             {
-                this.txStack = new List<INstmTransaction>();
-                Thread.SetData(txStackTLSSlot, this.txStack);
+                ThreadTransactionStack.txStack = new List<INstmTransaction>();
             }
         }
 
 
         public void Push(INstmTransaction tx)
         {
-            this.txStack.Add(tx);
+            ThreadTransactionStack.txStack.Add(tx);
         }
         
 
         public INstmTransaction Pop()
         {
-            if (this.txStack.Count > 0)
+            if (ThreadTransactionStack.txStack.Count > 0)
             {
-                INstmTransaction tx = this.txStack[this.txStack.Count - 1];
-                this.txStack.RemoveAt(this.txStack.Count - 1);
+                INstmTransaction tx = ThreadTransactionStack.txStack[ThreadTransactionStack.txStack.Count - 1];
+                ThreadTransactionStack.txStack.RemoveAt(ThreadTransactionStack.txStack.Count - 1);
                 return tx;
             }
             else
@@ -57,8 +53,8 @@ namespace NSTM.Infrastructure
 
         public INstmTransaction Peek()
         {
-            if (this.txStack.Count > 0)
-                return this.txStack[this.txStack.Count - 1];
+            if (ThreadTransactionStack.txStack.Count > 0)
+                return ThreadTransactionStack.txStack[ThreadTransactionStack.txStack.Count - 1];
             else
                 return null;
         }
@@ -66,9 +62,9 @@ namespace NSTM.Infrastructure
 
         public INstmTransaction FindBySystemTransaction(System.Transactions.Transaction txSystem)
         {
-            for (int i = this.txStack.Count - 1; i >= 0; i--) // start at end of list to go up the stack and check most recent tx first
+            for (int i = ThreadTransactionStack.txStack.Count - 1; i >= 0; i--) // start at end of list to go up the stack and check most recent tx first
             {
-                INstmTransaction tx = this.txStack[i];
+                INstmTransaction tx = ThreadTransactionStack.txStack[i];
                 if (tx.SystemTransaction == txSystem)
                     return tx;
             }
@@ -90,7 +86,7 @@ namespace NSTM.Infrastructure
         {
             get
             {
-                return this.txStack.Count;
+                return ThreadTransactionStack.txStack.Count;
             }
         }
     }

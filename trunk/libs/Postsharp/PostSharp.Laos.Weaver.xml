@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>PostSharp.Laos.Weaver</name>
+  </assembly>
+  <members>
+    <member name="T:PostSharp.Laos.Weaver.MethodLevelAspectWeaver">
+      <summary>
+            Base class for weavers of method-level aspects (<see cref="T:PostSharp.Laos.ILaosMethodLevelAspect" />).
+            </summary>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.LaosAspectWeaver">
+      <summary>
+            Base class that all weavers of Laos aspects (<see cref="T:PostSharp.Laos.ILaosAspect" />)
+            should implement.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.LaosAspectWeaver.ValidateSelf">
+      <summary>
+            Validates the aspect use in itself, without regard to other aspects.
+            </summary>
+      <returns>
+        <b>true</b> if the aspect is used correctly, 
+            otherwise <b>false</b>.</returns>
+      <remarks>
+            Implementations should write messages using a<see cref="T:PostSharp.Extensibility.MessageSource" />,
+            then return <b>true</b>. If <b>false</b> is returned, the aspect is
+            not further processed (for instance, the <see cref="T:PostSharp.Laos.ILaosReflectionAspectProvider" />
+            interface is not used).
+            </remarks>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.LaosAspectWeaver.ValidateDeclaringType(PostSharp.CodeModel.IType)">
+      <summary>
+            Validates whether the aspect use with regard to the declaring type (can the 
+            aspect be applied on a field or a method of this type?). The default behavior
+            is to require that this type itself is not a Laos aspect.
+            </summary>
+      <param name="type">The declaring type.</param>
+      <returns>
+        <b>true</b> if the aspect is used correctly, 
+            otherwise <b>false</b>.</returns>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.LaosAspectWeaver.ValidateInteractions">
+      <summary>
+            Validates the aspect use with regards to other aspect uses.
+            </summary>
+      <remarks>
+            Implementations should write messages using a<see cref="T:PostSharp.Extensibility.MessageSource" />.
+            </remarks>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.LaosAspectWeaver.EmitCompileTimeInitialization(PostSharp.ModuleWriter.InstructionEmitter)">
+      <summary>
+            Emits instructions that initialize the aspect at runtime. These instructions
+            will be injected in the static constructor of the PostSharp Laos implementation
+            details object, <i>after</i> the field containing the runtime instance
+            of the instance (<see cref="P:PostSharp.Laos.Weaver.LaosAspectWeaver.AspectRuntimeInstanceField" />) has been 
+            initialized.
+            </summary>
+      <param name="writer">The <see cref="T:PostSharp.CodeModel.InstructionWriter" /> into which
+            instructions have to be written.</param>
+      <remarks>
+            It is expected that implementations generate only simple streams of instructions,
+            without branching instructions. If more complexity is required, they should
+            generate auxiliary methods.
+            </remarks>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.LaosAspectWeaver.Initialize">
+      <summary>
+            Initialize the current weaver and its aspect.
+            </summary>
+      <remarks>
+            Implementations should always call the base method.
+            </remarks>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.LaosAspectWeaver.Implement">
+      <summary>
+            Implement the current aspect.
+            </summary>
+      <remarks>
+            If implementations need to register an advice for the low-level code
+            weaver, they can add them in the <see cref="P:PostSharp.Laos.Weaver.LaosTask.MethodLevelAdvices" />
+            and <see cref="P:PostSharp.Laos.Weaver.LaosTask.TypeLevelAdvices" /> collections of the
+            parent <see cref="T:PostSharp.Laos.Weaver.LaosTask" />.
+            </remarks>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosAspectWeaver.AspectRuntimeInstanceField">
+      <summary>
+            Gets the field that contains, at runtime, the deserialized instance
+            of the aspect.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosAspectWeaver.Task">
+      <summary>
+            Gets the <see cref="T:PostSharp.Laos.Weaver.LaosTask" /> to which this weaver belong.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosAspectWeaver.UniqueName">
+      <summary>
+            Gets the name of the current aspect, unique in the current module.
+            </summary>
+      <remarks>
+            This name is useful to generate unique identifiers.
+            </remarks>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosAspectWeaver.TargetElement">
+      <summary>
+            Gets the element to which the aspect is applied.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosAspectWeaver.Aspect">
+      <summary>
+            Gets the compile-time instance of the aspect.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.MethodLevelAspectWeaver.Initialize">
+      <inheritdoc />
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.MethodLevelAspectWeaver.ValidateSelf">
+      <inheritdoc />
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.MethodLevelAspectWeaver.EmitCompileTimeInitialization(PostSharp.ModuleWriter.InstructionEmitter)">
+      <inheritdoc />
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.MethodLevelAspectWeaver.TargetReflectionMethod">
+      <summary>
+            Gets the Reflection representation of the method to which the current aspect
+            is applied.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.MethodLevelAspectWeaver.TargetMethod">
+      <summary>
+            Gets the method to which the aspect is applied.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.MethodLevelAspectWeaver.MethodLevelAspect">
+      <summary>
+            Gets the compile-time instance of the aspect, casted as a <see cref="T:PostSharp.Laos.ILaosMethodLevelAspect" />.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.IMethodLevelAdvice">
+      <summary>
+            Semantics to be implemented by advices that are added to
+            the <see cref="P:PostSharp.Laos.Weaver.LaosTask.MethodLevelAdvices" /> collection of advices.
+            These are normal advices from <see cref="N:PostSharp.CodeWeaver" /> with
+            additional information about the join points to which the advices apply.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.IMethodLevelAdvice.Method">
+      <summary>
+            Gets the method to which the current advice applies, or <b>null</b>
+            if the current advice applies to all methods.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.IMethodLevelAdvice.Operand">
+      <summary>
+            Gets the operand to which the current advice applies, or <b>null</b>
+            if the current advices apply to all operands or if the operand is
+            not relevant.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.IMethodLevelAdvice.JoinPointKinds">
+      <summary>
+            Gets the kinds of join point to which the current advice applies.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.BuiltInAspectWeaverFactory">
+      <summary>
+            Implementation of <see cref="T:PostSharp.Laos.Weaver.ILaosAspectWeaverFactory" /> for
+            aspects defined in this assembly.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.ILaosAspectWeaverFactory">
+      <summary>
+            Interface to be implemented by PostSharp tasks (<see cref="T:PostSharp.Extensibility.Task" />)
+            that provide weavers for Laos aspects. This interface has a method
+            <see cref="M:PostSharp.Laos.Weaver.ILaosAspectWeaverFactory.CreateAspectWeaver(PostSharp.Laos.ILaosAspect)" /> that is invoked when a weaver
+            should be created for an aspect.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.ILaosAspectWeaverFactory.CreateAspectWeaver(PostSharp.Laos.ILaosAspect)">
+      <summary>
+            Creates a weaver for a given aspect.
+            </summary>
+      <param name="aspect">The aspect for which the weaver should be created.</param>
+      <returns>A weaver for <paramref name="aspect" />, or <b>null</b> if
+            the current factory does not recognize this aspect.</returns>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.BuiltInAspectWeaverFactory.CreateAspectWeaver(PostSharp.Laos.ILaosAspect)">
+      <inheritdoc />
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.FieldLevelAspectWeaver">
+      <summary>
+            Base class for weavers of field-level aspects (<see cref="T:PostSharp.Laos.ILaosFieldLevelAspect" />).
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.FieldLevelAspectWeaver.Initialize">
+      <inheritdoc />
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.FieldLevelAspectWeaver.ValidateSelf">
+      <inheritdoc />
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.FieldLevelAspectWeaver.EmitCompileTimeInitialization(PostSharp.ModuleWriter.InstructionEmitter)">
+      <inheritdoc />
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.FieldLevelAspectWeaver.EmitCompileTimeInitialization(PostSharp.ModuleWriter.InstructionEmitter,System.Boolean)">
+      <summary>
+            Emits instructions that initialize the aspect at runtime. These instructions
+            will be injected in the static constructor of the PostSharp Laos implementation
+            details object, <i>after</i> the field containing the runtime instance
+            of the instance (<see cref="P:PostSharp.Laos.Weaver.LaosAspectWeaver.AspectRuntimeInstanceField" />) has been 
+            initialized.
+            </summary>
+      <param name="writer">The <see cref="T:PostSharp.CodeModel.InstructionWriter" /> into which
+            instructions have to be written.</param>
+      <param name="suppressField">Whether the field declaration will be removed.</param>
+      <remarks>
+            It is expected that implementations generate only simple streams of instructions,
+            without branching instructions. If more complexity is required, they should
+            generate auxiliary methods.
+            </remarks>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.FieldLevelAspectWeaver.TargetReflectionField">
+      <summary>
+            Gets the Reflection representation of the type to which the current
+            aspect is applied.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.FieldLevelAspectWeaver.TargetField">
+      <summary>
+            Gets the target field.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.FieldLevelAspectWeaver.FieldLevelAspect">
+      <summary>
+            Gets the aspect.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.IFieldLevelAdvice">
+      <summary>
+            Semantics to be implemented by advices that are added to
+            the <see cref="P:PostSharp.Laos.Weaver.LaosTask.FieldLevelAdvices" /> collection of advices.
+            These are normal advices from <see cref="N:PostSharp.CodeWeaver" /> with
+            additional information about the join points to which the advices apply.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.IFieldLevelAdvice.Field">
+      <summary>
+            Gets the type to which the current advice applies.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.IFieldLevelAdvice.JoinPointKinds">
+      <summary>
+            Gets the kinds of join point to which the current advice applies.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.IFieldLevelAdvice.ChangeToProperty">
+      <summary>
+            Determines whether the field should be changed to a property.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.InstanceTagManager">
+      <summary>
+            Encapsulates the work with instance tags. Given an <see cref="T:PostSharp.Laos.InstanceTagRequest" />,
+            returns a <see cref="T:PostSharp.CodeModel.FieldDefDeclaration" />.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.InstanceTagManager.GetInstanceTagField(PostSharp.CodeModel.TypeDefDeclaration,PostSharp.Laos.InstanceTagRequest,System.Boolean)">
+      <summary>
+            Given an <see cref="T:PostSharp.Laos.InstanceTagRequest" />,
+            returns a <see cref="T:PostSharp.CodeModel.FieldDefDeclaration" />.
+            </summary>
+      <param name="typeDef">Type in which the instance tag is requested.</param>
+      <param name="request">An <see cref="T:PostSharp.Laos.InstanceTagRequest" />.</param>
+      <returns>A <see cref="T:PostSharp.CodeModel.FieldDefDeclaration" /> aimed to contained the instance
+            tag, fullfilling the <paramref name="request" />.</returns>
+      <param name="forceStatic">Force the tag to be stored in a static field.</param>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.InstanceTagManager.EmitLoadInstanceTag(PostSharp.CodeModel.LocalVariableSymbol,PostSharp.CodeModel.IField,PostSharp.ModuleWriter.InstructionEmitter)">
+      <summary>
+            Emits instructions that load the instance tag from the field into the event argument property.
+            </summary>
+      <param name="eventArgsLocal">Local variable where the event argument is stored.</param>
+      <param name="instanceTagField">Field where the instance tag is stored.</param>
+      <param name="writer">An <see cref="T:PostSharp.ModuleWriter.InstructionEmitter" />.</param>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.InstanceTagManager.EmitStoreInstanceTag(PostSharp.CodeModel.LocalVariableSymbol,PostSharp.CodeModel.IField,PostSharp.ModuleWriter.InstructionEmitter)">
+      <summary>
+            Emits instructions that store the instance tag from the event argument property into the field .
+            </summary>
+      <param name="eventArgsLocal">Local variable where the event argument is stored.</param>
+      <param name="instanceTagField">Field where the instance tag is stored.</param>
+      <param name="writer">An <see cref="T:PostSharp.ModuleWriter.InstructionEmitter" />.</param>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.InstanceCredentialsManager">
+      <summary>
+            Manages the creation of the <b>GetInstanceCredentials</b> method.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.InstanceCredentialsManager.RequestGetInstanceCredentialsMethod(PostSharp.CodeModel.TypeDefDeclaration)">
+      <summary>
+            Specifies that the <b>GetInstanceCredentials</b> method will be requested
+            on a type.
+            </summary>
+      <param name="type">The type for which the <b>GetInstanceCredentials</b> will
+            be requested.</param>
+      <remarks>
+            This method is typically called during the initialization phase.
+            </remarks>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.InstanceCredentialsManager.GetGetInstanceCredentialsMethod(PostSharp.CodeModel.TypeDefDeclaration)">
+      <summary>
+            Gets the <b>GetInstanceCredentials</b> method for a given type.
+            </summary>
+      <param name="type">The type for which the <b>GetInstanceCredentials</b> method
+            is requested.</param>
+      <returns>A <see cref="T:PostSharp.CodeModel.IMethod" /> representing the <b>GetInstanceCredentials</b>
+            method, either on <paramref name="type" /> either on one of its base types.</returns>
+      <remarks>
+            This method is typically called during the implementation phase.
+            </remarks>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.InstanceCredentialsManager.Dispose">
+      <inheritdoc />
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.ITypeLevelAdvice">
+      <summary>
+            Semantics to be implemented by advices that are added to
+            the <see cref="P:PostSharp.Laos.Weaver.LaosTask.TypeLevelAdvices" /> collection of advices.
+            These are normal advices from <see cref="N:PostSharp.CodeWeaver" /> with
+            additional information about the join points to which the advices apply.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.ITypeLevelAdvice.Type">
+      <summary>
+            Gets the type to which the current advice applies.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.ITypeLevelAdvice.JoinPointKinds">
+      <summary>
+            Gets the kinds of join point to which the current advice applies.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.TypeLevelAspectWeaver">
+      <summary>
+            Base class for weavers of method-level aspects (<see cref="T:PostSharp.Laos.ILaosMethodLevelAspect" />).
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.TypeLevelAspectWeaver.Initialize">
+      <inheritdoc />
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.TypeLevelAspectWeaver.ValidateSelf">
+      <inheritdoc />
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.TypeLevelAspectWeaver.EmitCompileTimeInitialization(PostSharp.ModuleWriter.InstructionEmitter)">
+      <inheritdoc />
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.TypeLevelAspectWeaver.TypeLevelAspect">
+      <summary>
+            Gets the compile-time instance of the aspect, casted as a <see cref="T:PostSharp.Laos.ILaosTypeLevelAspect" />.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.TypeLevelAspectWeaver.TargetReflectionType">
+      <summary>
+            Gets the Reflection representation of the type to which the current
+            aspect is applied.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.TypeLevelAspectWeaver.TargetType">
+      <summary>
+            Gets the type to which this aspect is applied.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.IntendManager">
+      <summary>
+            Managed the <i>intends</i>, i.e. what aspect <i>intend</i> to do in their 
+            implementation phase. Intends are typically added during the initialization
+            phase and are verified by the <see cref="M:PostSharp.Laos.Weaver.LaosAspectWeaver.ValidateInteractions" />
+            method.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.IntendManager.AddIntend(PostSharp.CodeModel.MetadataDeclaration,System.String)">
+      <summary>
+            Adds an intend.
+            </summary>
+      <param name="target">Declaration to which the intend applies.</param>
+      <param name="intend">The intend.</param>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.IntendManager.HasIntend(PostSharp.CodeModel.MetadataDeclaration,System.String)">
+      <summary>
+            Determines whether a given intend has been applied to a given declaration.
+            </summary>
+      <param name="target">Declaration to which the intend would apply.</param>
+      <param name="intend">The intend.</param>
+      <returns>
+        <b>true</b> if <paramref name="intend" /> applies on <paramref name="target" />,
+            otherwise <b>false</b>.</returns>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.IntendManager.HasInheritedIntend(PostSharp.CodeModel.IType,System.String)">
+      <summary>
+            Determines whether a given intend has been applied to a given type
+            or to one of its parent types.
+            </summary>
+      <param name="targetType">Type to which the intend would apply.</param>
+      <param name="intend">The intend.</param>
+      <returns>
+        <b>true</b> if <paramref name="intend" /> applies on <paramref name="targetType" />
+            or one of its base types, otherwise <b>false</b>.</returns>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.EventArgsBuilders">
+      <summary>
+            Build event argument objects used in Laos.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.EventArgsBuilders.BuildMethodExecutionEventArgs(PostSharp.CodeModel.MethodDefDeclaration,PostSharp.ModuleWriter.InstructionEmitter,PostSharp.CodeModel.LocalVariableSymbol@,PostSharp.CodeModel.LocalVariableSymbol@)">
+      <summary>
+            Emit instructions that build a <see cref="T:PostSharp.Laos.MethodExecutionEventArgs" /> instance.
+            </summary>
+      <param name="method">Executed method.</param>
+      <param name="writer">Writer where instructions are written.</param>
+      <param name="arrayOfArgumentsLocal">An output parameter filled with
+            a local variable containing the array of local arguments.</param>
+      <param name="eventArgsLocal">An output parameter filled with a
+            local variable containing the built event arguments.</param>
+      <remarks>
+            The exposed value should be on the stack.
+            </remarks>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.EventArgsBuilders.BuildFieldAccessEventArgs(PostSharp.CodeModel.FieldDefDeclaration,PostSharp.CodeModel.InstructionWriter,PostSharp.CodeModel.LocalVariableSymbol,PostSharp.CodeModel.LocalVariableSymbol@)">
+      <summary>
+            Emit instructions that build a <see cref="T:PostSharp.Laos.FieldAccessEventArgs" /> instance.
+            </summary>
+      <param name="field">Accessed field, or <b>null</b> if the field value and metadata don't have to be loaded.</param>
+      <param name="fieldValueLocal">Local variable in which the field value is stored.</param>
+      <param name="eventArgsLocal">An output parameter filled with a
+            local variable containing the built event arguments.</param>
+      <param name="writer">Writer where instructions are written.</param>
+      <remarks>
+            The exposed value should be on the stack.
+            </remarks>
+    </member>
+    <member name="T:PostSharp.Laos.Weaver.LaosTask">
+      <summary>
+            Principal PostSharp Task processing Laos aspects.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.LaosTask.#ctor">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Laos.Weaver.LaosTask" />.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Laos.Weaver.LaosTask.Execute">
+      <inheritdoc />
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.InstanceCredentialsManager">
+      <summary>
+            Gets the <see cref="P:PostSharp.Laos.Weaver.LaosTask.InstanceCredentialsManager" />.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.Tags">
+      <summary>
+            Gets a collection of tags that weaver can use to share state.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.MethodLevelAdvices">
+      <summary>
+            Gets a collection that can be used to add method-level advices
+            of the <see cref="N:PostSharp.CodeWeaver" /> namespace (i.e. advices
+            of the low-level weaver).
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.FieldLevelAdvices">
+      <summary>
+            Gets a collection that can be used to add method-level advices
+            of the <see cref="N:PostSharp.CodeWeaver" /> namespace (i.e. advices
+            of the low-level weaver).
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.TypeLevelAdvices">
+      <summary>
+            Gets a collection that can be used to add type-level advices
+            of the <see cref="N:PostSharp.CodeWeaver" /> namespace (i.e. advices
+            of the low-level weaver).
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.WeavingHelper">
+      <summary>
+            Gets a collection that can be used to add type-level advices
+            of the <see cref="N:PostSharp.CodeWeaver" /> namespace (i.e. advices
+            of the low-level weaver).
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.ImplementationDetailsType">
+      <summary>
+            Gets the type where Laos implementation details (like deserialized aspects)
+            are stored.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.InstructionWriter">
+      <summary>
+            Gets an <see cref="T:PostSharp.CodeModel.InstructionWriter" /> that weavers
+            can use when writing third methods. Callers are responsible to release
+            the instruction writer after use.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.EventArgsBuilders">
+      <summary>
+            Gets the <see cref="T:PostSharp.Laos.Weaver.EventArgsBuilders" /> helper
+            for the current task.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Laos.Weaver.LaosTask.InstanceTagManager">
+      <summary>
+            Gets the <see cref="T:PostSharp.Laos.Weaver.InstanceTagManager" /> helper
+            for the current task.
+            </summary>
+    </member>
+  </members>
+</doc>

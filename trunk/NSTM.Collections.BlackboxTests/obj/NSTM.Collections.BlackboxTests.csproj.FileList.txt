@@ -9,3 +9,9 @@ bin\Debug\NSTM.Collections.pdb
 obj\Debug\NSTM.Collections.BlackboxTests.dll
 obj\Debug\NSTM.Collections.BlackboxTests.pdb
 bin\Debug\nunit.framework.dll
+bin\Debug\PostSharp.Laos.dll
+bin\Debug\PostSharp.Public.dll
+bin\Debug\PostSharp.Laos.pdb
+bin\Debug\PostSharp.Laos.xml
+bin\Debug\PostSharp.Public.pdb
+bin\Debug\PostSharp.Public.xml
