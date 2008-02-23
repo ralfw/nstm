@@ -8,5 +8,7 @@ namespace NSTM
     {
         long Version { get; }
         void IncrementVersion();
+
+        int GetHashCodeForVersion();
     }
 }

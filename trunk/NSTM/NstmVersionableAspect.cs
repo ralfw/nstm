@@ -8,6 +8,7 @@ namespace NSTM
 {
     internal class NstmVersion : INstmVersioned
     {
+        private Guid id = Guid.NewGuid();
         private long version = 0;
 
         #region IVersioned Members
@@ -25,6 +26,10 @@ namespace NSTM
             this.version++;
         }
 
+        int INstmVersioned.GetHashCodeForVersion()
+        {
+            return this.id.GetHashCode();
+        }
         #endregion
     }
 

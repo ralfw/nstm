@@ -18,6 +18,7 @@ namespace NSTM
     // shared object: can be involved in many tx and can be used by many threads
     internal class NstmObject<T> : INstmObject<T>, INstmObject
     {
+        private Guid id = Guid.NewGuid();
         private long version = 0;
         private T value;
 
@@ -101,6 +102,11 @@ namespace NSTM
         void INstmVersioned.IncrementVersion()
         {
             this.version++;
+        }
+
+        int INstmVersioned.GetHashCodeForVersion()
+        {
+            return this.id.GetHashCode();
         }
 
         object INstmObject.Value

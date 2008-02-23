@@ -19,15 +19,15 @@ namespace NSTM.Infrastructure
 
         internal void Add(TransactionLogEntry txEntry)
         {
-            this.entries.Add(txEntry.instance.GetHashCode(), txEntry);
+            this.entries.Add(txEntry.instance.GetHashCodeForVersion(), txEntry);
         }
 
 
-        internal TransactionLogEntry this[object instance]
+        internal TransactionLogEntry this[INstmVersioned instance]
         {
             get
             {
-                int key = instance.GetHashCode();
+                int key = instance.GetHashCodeForVersion();
 
                 if (entries.ContainsKey(key))
                     return entries[key];
@@ -61,7 +61,7 @@ namespace NSTM.Infrastructure
         {
             TransactionLog txLogClone = new TransactionLog();
             foreach (TransactionLogEntry logEntry in entries.Values)
-                txLogClone.entries.Add(logEntry.instance.GetHashCode(), (TransactionLogEntry)logEntry.Clone());
+                txLogClone.entries.Add(logEntry.instance.GetHashCodeForVersion(), (TransactionLogEntry)logEntry.Clone());
             return txLogClone;
         }
 
