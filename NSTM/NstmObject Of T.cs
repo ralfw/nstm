@@ -93,6 +93,10 @@ namespace NSTM
 
 
         #region INstmObject + INstmVersioned Members
+        Guid INstmVersioned.Id
+        {
+            get { return this.id; }
+        }
 
         public long Version
         {
@@ -104,10 +108,6 @@ namespace NSTM
             this.version++;
         }
 
-        int INstmVersioned.GetHashCodeForVersion()
-        {
-            return this.id.GetHashCode();
-        }
 
         object INstmObject.Value
         {

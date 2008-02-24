@@ -12,6 +12,10 @@ namespace NSTM
         private long version = 0;
 
         #region IVersioned Members
+        Guid INstmVersioned.Id
+        {
+            get { return this.id; }
+        }
 
         long INstmVersioned.Version
         {
@@ -24,11 +28,6 @@ namespace NSTM
         void INstmVersioned.IncrementVersion()
         {
             this.version++;
-        }
-
-        int INstmVersioned.GetHashCodeForVersion()
-        {
-            return this.id.GetHashCode();
         }
         #endregion
     }

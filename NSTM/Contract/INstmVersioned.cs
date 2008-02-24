@@ -6,9 +6,9 @@ namespace NSTM
 {
     public interface INstmVersioned
     {
+        Guid Id { get; }
+
         long Version { get; }
         void IncrementVersion();
-
-        int GetHashCodeForVersion();
     }
 }

@@ -8,18 +8,18 @@ namespace NSTM.Infrastructure
 {
     internal class TransactionLog : ICloneable
     {
-        private SortedDictionary<int, TransactionLogEntry> entries;
+        private SortedDictionary<Guid, TransactionLogEntry> entries;
 
 
         internal TransactionLog()
         {
-            entries = new SortedDictionary<int, TransactionLogEntry>();
+            this.entries = new SortedDictionary<Guid, TransactionLogEntry>();
         }
 
 
         internal void Add(TransactionLogEntry txEntry)
         {
-            this.entries.Add(txEntry.instance.GetHashCodeForVersion(), txEntry);
+            this.entries.Add(txEntry.instance.Id, txEntry);
         }
 
 
@@ -27,10 +27,8 @@ namespace NSTM.Infrastructure
         {
             get
             {
-                int key = instance.GetHashCodeForVersion();
-
-                if (entries.ContainsKey(key))
-                    return entries[key];
+                if (this.entries.ContainsKey(instance.Id))
+                    return this.entries[instance.Id];
                 else
                     return null;
             }
@@ -41,7 +39,7 @@ namespace NSTM.Infrastructure
         {
             get
             {
-                return entries.Count;
+                return this.entries.Count;
             }
         }
 
@@ -56,15 +54,13 @@ namespace NSTM.Infrastructure
 
 
         #region ICloneable Members
-
         public object Clone()
         {
             TransactionLog txLogClone = new TransactionLog();
-            foreach (TransactionLogEntry logEntry in entries.Values)
-                txLogClone.entries.Add(logEntry.instance.GetHashCodeForVersion(), (TransactionLogEntry)logEntry.Clone());
+            foreach (TransactionLogEntry logEntry in this.entries.Values)
+                txLogClone.entries.Add(logEntry.instance.Id, (TransactionLogEntry)logEntry.Clone());
             return txLogClone;
         }
-
         #endregion
     }
 }
