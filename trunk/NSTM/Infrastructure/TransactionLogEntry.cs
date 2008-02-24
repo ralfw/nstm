@@ -6,7 +6,7 @@ namespace NSTM.Infrastructure
 {
     internal abstract class TransactionLogEntry : ICloneable
     {
-        private Guid id;
+        private Guid id = Guid.NewGuid();
 
         internal INstmVersioned instance;
         internal long version = -1;
@@ -17,8 +17,6 @@ namespace NSTM.Infrastructure
 
         internal TransactionLogEntry(INstmVersioned instance)
         {
-            this.id = Guid.NewGuid();
-
             this.instance = instance;
             this.version = instance.Version;
         }
@@ -37,9 +35,9 @@ namespace NSTM.Infrastructure
         #endregion
 
 
-        public override int GetHashCode()
+        public Guid Id
         {
-            return this.id.GetHashCode();
+            get { return this.id; }
         }
     }
 
