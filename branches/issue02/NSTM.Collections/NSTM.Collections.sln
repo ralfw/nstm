@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSTM.Collections", "NSTM.Collections.csproj", "{AE789E4A-9710-4DB3-85B9-DF4F28BA0C37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSTM.Collections.BlackboxTests", "..\NSTM.Collections.BlackboxTests\NSTM.Collections.BlackboxTests.csproj", "{82166AAD-F916-4F80-8997-9B105857B2E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE789E4A-9710-4DB3-85B9-DF4F28BA0C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE789E4A-9710-4DB3-85B9-DF4F28BA0C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE789E4A-9710-4DB3-85B9-DF4F28BA0C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE789E4A-9710-4DB3-85B9-DF4F28BA0C37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82166AAD-F916-4F80-8997-9B105857B2E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82166AAD-F916-4F80-8997-9B105857B2E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82166AAD-F916-4F80-8997-9B105857B2E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82166AAD-F916-4F80-8997-9B105857B2E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

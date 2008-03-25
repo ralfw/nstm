@@ -1,0 +1,38 @@
+* Copyright (c) 2007, Ralf Westphal, Hamburg, Germany; www.ralfw.de
+* All rights reserved.
+*
+* Use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*     * Source code must retain the above copyright
+*       notice, this list of conditions and the following disclaimer.
+*     * Any binary form must reproduce the above copyright
+*       notice, this list of conditions and the following disclaimer in the
+*       documentation and/or other materials provided with the distribution.
+*     * Names of its contributors may not be used to endorse or promote products
+*       derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY RALF WESTPHAL ``AS IS'' AND ANY
+* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL RALF WESTPHAL BE LIABLE FOR ANY
+* DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+* (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+* This is a slightly modified BSD License (source: http://en.wikipedia.org/wiki/BSD_license). 
+* Only redistribution of the software as source code or in binary form is not granted any more.
+* Private and internal use in an enterprise are still permitted.
+
+Any feedback and information about changes/additions is appreciated.
+Please send to: info@ralfw.de.
+
+----------------------------
+
+To provide the NstmTransactionalAttribute functionality the PostSharp 1.0 Library (c) by Gael Fraiteur is used.
+See the references to PostSharp.Public and PostSharp.Laos in the NSTM project.
+
+Download PostSharp from http://www.postsharp.org/ if you want to use the NstmTransactionalAttribute in your
+applications, since the PostSharp post-compiler is needed to enhance your compiled assemblies.

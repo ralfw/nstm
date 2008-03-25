@@ -1,0 +1,15 @@
+obj\Debug\ResolveAssemblyReference.cache
+bin\Debug\NSTM.Collections.dll
+bin\Debug\NSTM.Collections.pdb
+bin\Debug\NSTM.dll
+bin\Debug\NSTM.pdb
+obj\Debug\NSTM.Collections.dll
+obj\Debug\NSTM.Collections.pdb
+bin\Debug\nunit.core.dll
+bin\Debug\nunit.framework.dll
+bin\Debug\PostSharp.Laos.dll
+bin\Debug\PostSharp.Public.dll
+bin\Debug\PostSharp.Laos.pdb
+bin\Debug\PostSharp.Laos.xml
+bin\Debug\PostSharp.Public.pdb
+bin\Debug\PostSharp.Public.xml
