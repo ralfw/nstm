@@ -1,0 +1,8 @@
+bin\Debug\SimpleSample.exe
+bin\Debug\SimpleSample.pdb
+bin\Debug\NSTM.dll
+bin\Debug\NSTM.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\SimpleSample.exe
+obj\Debug\SimpleSample.pdb
+bin\Debug\System.Data.SqlClient.dll
