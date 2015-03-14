@@ -1,0 +1,3 @@
+A Software Transactional Memory (STM) implemented in C#: Work with in-memory data structures in a transactional way like with database tables. Use implicit optimistic locking instead of explicit locks to synchronize concurrent access to shared data. Classes as well as value types can very easily be made transactional and thread-safe. Transactions can be opened imperatively or declaratively. NSTM implements truely nested transactions.
+
+For a description of NSTM´s programming model and features read the [articles in my blog](http://weblogs.asp.net/ralfw/archive/tags/Software+Transactional+Memory/default.aspx).
